@@ -108,7 +108,7 @@ input[type="date"]:not(:placeholder-shown) + #datePlaceholder {
     display: none;
 }
 
-        input[type="date"] {
+    input[type="date"] {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
@@ -116,7 +116,7 @@ input[type="date"]:not(:placeholder-shown) + #datePlaceholder {
     padding: 10px;
     font-size: 16px;
     position: relative;
-   
+    text-align: center; 
 }
 
 input[type="date"]::-webkit-calendar-picker-indicator {
