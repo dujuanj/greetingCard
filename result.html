@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/common.css">
+</head>
+<body>
+     <div class="container result_wrap">
+        <!-- <img src="img/result_bg.jpg" alt=""> -->
+        <div class="card_wrap">
+           <!-- <img src="img/card_content.png" alt=""> -->
+          
+            <p id="nameDisplay"></p>
+            <span id="yearDisplay"></span>
+            <span id="monthDisplay"></span>
+            <span id="dayDisplay"></span>
+            <p id="daysDisplay"></p> <!-- 用于显示天数 -->
+             
+    <p id="dateDisplay"></p>
+        </div>
+    </div>
+
+    <script>
+        // 页面加载时，设置 sessionStorage 的值
+        document.addEventListener("DOMContentLoaded", function() {
+
+            // 从 sessionStorage 中获取并显示值
+            const storedName = sessionStorage.getItem('name');
+            const storedDate = sessionStorage.getItem('date');
+
+            // 显示获取的值到页面上
+            document.getElementById("nameDisplay").textContent = storedName;
+           // 将存储的日期字符串（如 2024-09-19）分成年、月、日
+            const dateParts = storedDate.split('-'); // 分割日期为 ["2024", "09", "19"]
+
+            const year = dateParts[0];
+            const month = dateParts[1];
+            const day = dateParts[2];
+
+            // 显示年、月、日到对应的 HTML 元素
+            document.getElementById("yearDisplay").textContent = year;
+            document.getElementById("monthDisplay").textContent = month;
+            document.getElementById("dayDisplay").textContent = day;
+
+             // 计算存储的日期与当前日期的差值
+            const selectedDate = new Date(storedDate);
+            const currentDate = new Date();
+
+            // 计算两者的时间差 (毫秒)
+            const timeDifference = currentDate - selectedDate;
+
+            // 将时间差转为天数
+            const daysDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+
+            // 显示天数
+            document.getElementById("daysDisplay").textContent = `${daysDifference}`;
+        });
+    </script>
+</body>
+</html>

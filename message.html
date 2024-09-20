@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+     <link rel="stylesheet" href="css/common.css">
+     <link rel="stylesheet" href="css/message.css">
+</head>
+<body>
+    <div class="container">
+        <img src="img/two.jpg" alt="">
+        <div>
+            <div class="form-container">
+                <input type="text" id="name" placeholder="请输入您的姓名">
+                <!-- <input type="date" id="dateInput" placeholder="选择您的入党时间"> -->
+               <div class="input-container">
+                 <input type="date" id="dateInput" onfocus="hidePlaceholder()"  onchange="showValue()" />
+                 <span id="datePlaceholder" class="placeholder-text">选择您的入党时间</span>
+                </div>
+                <div class="join">
+                    <img src="img/join.png" alt="">
+                </div>
+                  <div class="next_step">
+                    <img src="img/next.png" alt="" onclick="submitForm()">
+                </div>
+
+</div>
+
+
+             
+              
+                <!-- <button type="button" onclick="submitForm()">下一步</button> -->
+            </div>
+        </div>
+    </div>
+    
+    <script src="js/index.js"></script>
+</body>
+</html>

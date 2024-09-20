@@ -1,0 +1,107 @@
+.form-container {
+            text-align: center;
+            padding: 30px;
+            border-radius: 20px;
+            width: 90%;
+            position: absolute;
+            top:26%;
+            left: 50%;   
+            transform: translateX(-50%);
+        }
+
+        .form-container input, 
+        .form-container select {
+            width: 100%;
+            padding: 18px;
+            border: none;
+            border-radius: 10px;
+            /* background-color: rgba(255, 255, 255, 0.8); */
+            font-size: 16px;
+            color: #fff;
+            text-align: center;
+            background: url('../img/inputbg.png') no-repeat;
+            background-size: 100% 100%;
+            /* background-image: url('../img/inputbg.png');
+            background-repeat: no-repeat;
+            background-position: 10px center; */
+            
+        }
+        .form-container input::placeholder {
+    color: white;
+    font-weight: bold;
+}
+          .form-container input{
+            margin-bottom: 15px;
+          }
+
+        .form-container button {
+            width: 100%;
+            padding: 15px;
+            background-color: gold;
+            color: #d40000;
+            font-size: 18px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        .form-container button:hover {
+            background-color: #ffd700;
+        }
+
+        .form-title {
+            color: #f8e71c;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .form-description {
+            color: white;
+            font-size: 18px;
+            margin-bottom: 30px;
+        }
+        .join{
+            padding:0 15px;
+            margin-top:15px;
+        }
+        .next_step{
+            width: 100%;
+        }
+        .next_step img{
+            width: 70%;
+            margin:0 auto;
+        }
+
+.input-container {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+#datePlaceholder {
+    position: absolute;
+    top: 50%;
+    left: 80px;
+    transform: translateY(-80%);
+    color: #fff;
+    pointer-events: none;
+    font-size: 16px;
+    transition: 0.3s ease;
+    font-weight: bold;
+}
+
+input[type="date"] {
+    padding: 10px;
+    font-size: 16px;
+    width: 100%;
+    color: transparent; /* Make the input text transparent */
+}
+
+input[type="date"]:focus {
+    color: black; /* Restore the text color on focus */
+}
+
+input[type="date"]:focus + #datePlaceholder,
+input[type="date"]:not(:placeholder-shown) + #datePlaceholder {
+    display: none;
+}
