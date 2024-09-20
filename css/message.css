@@ -21,7 +21,6 @@
             text-align: center;
             background: url('../img/inputbg.png') no-repeat;
             background-size: 100% 100%;
-            height: 4rem;
             /* background-image: url('../img/inputbg.png');
             background-repeat: no-repeat;
             background-position: 10px center; */
@@ -82,7 +81,7 @@
 #datePlaceholder {
     position: absolute;
     top: 50%;
-    left: 80px;
+    left: 5rem;
     transform: translateY(-80%);
     color: #fff;
     pointer-events: none;
@@ -98,6 +97,8 @@ input[type="date"] {
     color: transparent; /* Make the input text transparent */
 }
 
+
+
 input[type="date"]:focus {
     color: black; /* Restore the text color on focus */
 }
@@ -106,3 +107,23 @@ input[type="date"]:focus + #datePlaceholder,
 input[type="date"]:not(:placeholder-shown) + #datePlaceholder {
     display: none;
 }
+
+        input[type="date"] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+     height: 4rem;
+    padding: 10px;
+    font-size: 16px;
+    position: relative;
+   
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+    opacity: 0; /* 隐藏图标，但保留功能 */
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
+
