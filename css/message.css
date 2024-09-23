@@ -116,8 +116,8 @@ input[type="date"]:not(:placeholder-shown) + #datePlaceholder {
     padding: 10px;
     font-size: 16px;
     position: relative;
-    /* text-align: center;  */
-    text-indent:2rem;
+    text-align: center; 
+    /* text-indent:2rem; */
 }
 
 input[type="date"]::-webkit-calendar-picker-indicator {
