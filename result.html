@@ -101,13 +101,14 @@
                 imgElement.style.display = 'block';  // 显示生成的图片
 
                 
-               // captureArea.style.opacity = 0;  
-               // setTimeout(() => {
-                 //   captureArea.style.display = 'none';  
-                //}, 500);  
+                captureArea.style.opacity = 0;  
+                setTimeout(() => {
+                    captureArea.style.display = 'none';  
+                }, 500);  
 
                 // 显示图片
-               // <!-- imgElement.style.opacity = 1; -->
+                imgElement.style.opacity = 1;
+                 alert('图片已生成，请右键点击图片并选择“保存图片”进行下载。');
             });
         }
     </script>
