@@ -6,17 +6,17 @@
     <title>Document</title>
     <link rel="stylesheet" href="css/common.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
- <style>
+    <style>
        .container {
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            transition: opacity 0.5s ease; /* 添加平滑的过渡效果 */
+            transition: opacity 0.5s ease;
         }
         #downloadImage {
-            display: none; /* 初始隐藏图片 */
+            display: none;
             max-width: 100%;
             height: auto;
         }
@@ -25,29 +25,27 @@
 <body>
      <div class="container result_wrap" id="captureArea">
         <div class="card_wrap">
-          
             <p id="nameDisplay"></p>
-            <span id="yearDisplay"></span>
-            <span id="monthDisplay"></span>
-            <span id="dayDisplay"></span>
+            <span id="yearDisplay"></span>年
+            <span id="monthDisplay"></span>月
+            <span id="dayDisplay"></span>日
             <p id="daysDisplay"></p>
             <p id="dateDisplay"></p>
         </div>
     </div>
-     <img id="downloadImage" alt="点击生成的图片" />
+
     <script>
         // 页面加载时，设置 sessionStorage 的值
         document.addEventListener("DOMContentLoaded", function() {
-             const captureArea = document.getElementById('captureArea');
-            const imgElement = document.getElementById('downloadImage');
             // 从 sessionStorage 中获取并显示值
             const storedName = sessionStorage.getItem('name');
             const storedDate = sessionStorage.getItem('date');
 
             // 显示获取的值到页面上
             document.getElementById("nameDisplay").textContent = storedName;
-           // 将存储的日期字符串（如 2024-09-19）分成年、月、日
-            const dateParts = storedDate.split('-'); // 分割日期为 ["2024", "09", "19"]
+
+            // 将存储的日期字符串（如 2024-09-19）分成年、月、日
+            const dateParts = storedDate.split('-');
 
             const year = dateParts[0];
             const month = dateParts[1];
@@ -58,11 +56,9 @@
             document.getElementById("monthDisplay").textContent = month;
             document.getElementById("dayDisplay").textContent = day;
 
-             // 计算存储的日期与当前日期的差值
+            // 计算存储的日期与当前日期的差值
             const selectedDate = new Date(storedDate);
             const currentDate = new Date();
-
-            // 计算两者的时间差 (毫秒)
             const timeDifference = currentDate - selectedDate;
 
             // 将时间差转为天数
@@ -70,31 +66,28 @@
 
             // 显示天数
             document.getElementById("daysDisplay").textContent = `${daysDifference}`;
-            
-          
+
+            const captureArea = document.getElementById('captureArea');
             captureArea.addEventListener('touchstart', handleLongPress);
         });
+
         let timeout;
 
         // 处理长按事件
         function handleLongPress(e) {
             e.preventDefault();
             timeout = setTimeout(() => {
-                // 长按超过800ms后，生成图片并自动保存
+                // 用户长按超过设定时间后生成图片并保存
                 saveAsImage();
-            }, 800);  // 800毫秒长按
+            }, 800); // 800毫秒长按触发
         }
 
-         // 清除长按事件
+        // 清除长按事件
         document.addEventListener('touchend', function() {
             clearTimeout(timeout);
         });
-        document.addEventListener('mouseup', function() {
-            clearTimeout(timeout);
-        });
 
-        // 使用 html2canvas 将页面内容转换为图片
-       // 使用 html2canvas 将页面内容生成图片并自动保存
+        // 使用 html2canvas 将页面内容转换为图片并保存
         function saveAsImage() {
             const captureArea = document.getElementById('captureArea');
 
@@ -102,16 +95,15 @@
                 // 将生成的 canvas 转换为图片的 Data URL
                 const imgData = canvas.toDataURL('image/png');
 
-                // 创建一个临时的 a 标签，用于下载
+                // 创建一个临时的 a 标签
                 const link = document.createElement('a');
                 link.href = imgData;
-                link.download = 'screenshot.png';  // 图片文件名
-                document.body.appendChild(link);
-                link.click();  // 模拟点击以触发下载
-                document.body.removeChild(link);  // 移除临时创建的 a 标签
+                link.download = 'screenshot.png';  // 设置图片文件名
+
+                // 自动触发下载
+                link.click();
             });
         }
     </script>
 </body>
 </html>
-
