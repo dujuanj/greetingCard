@@ -1,4 +1,4 @@
-<!-- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -38,7 +38,8 @@
     <script>
         // 页面加载时，设置 sessionStorage 的值
         document.addEventListener("DOMContentLoaded", function() {
-
+             const captureArea = document.getElementById('captureArea');
+            const imgElement = document.getElementById('downloadImage');
             // 从 sessionStorage 中获取并显示值
             const storedName = sessionStorage.getItem('name');
             const storedDate = sessionStorage.getItem('date');
@@ -70,89 +71,10 @@
             // 显示天数
             document.getElementById("daysDisplay").textContent = `${daysDifference}`;
             
-            const captureArea = document.getElementById('captureArea');
+          
             captureArea.addEventListener('touchstart', handleLongPress);
         });
         let timeout;
-
-        // 处理长按事件
-        function handleLongPress(e) {
-            e.preventDefault();
-            timeout = setTimeout(() => {
-                // 用户长按超过设定时间后生成图片
-                convertToImage();
-            }, 800); // 800毫秒内未松开则触发长按事件
-        }
-
-        // 清除长按事件
-        document.addEventListener('touchend', function() {
-            clearTimeout(timeout);
-        });
-
-        // 使用 html2canvas 将页面内容转换为图片
-        function convertToImage() {
-            const captureArea = document.getElementById('captureArea');  // 获取需要截图的区域
-            const imgElement = document.getElementById('downloadImage');
-
-            html2canvas(captureArea).then(function(canvas) {
-                // 生成图片
-                imgElement.src = canvas.toDataURL('image/png');
-                imgElement.style.display = 'block';  // 显示生成的图片
-
-                // 使用 CSS 过渡效果来隐藏原始内容，显示图片
-                captureArea.style.opacity = 0;  // 逐渐隐藏原始内容
-                setTimeout(() => {
-                    captureArea.style.display = 'none';  // 完全隐藏
-                }, 500);  // 延迟500ms与过渡动画同步
-
-                // 显示图片
-                imgElement.style.opacity = 1;
-            });
-        }
-    </script>
-</body>
-</html> -->
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-    <style>
-        /* 页面内容居中 */
-        .container {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-    </style>
-</head>
-<body>
-     <div class="container result_wrap" id="captureArea">
-        <div class="card_wrap">
-            <p id="nameDisplay">名字：张三</p>
-            <span id="yearDisplay">2024</span>年
-            <span id="monthDisplay">09</span>月
-            <span id="dayDisplay">19</span>日
-            <p id="daysDisplay">100天</p> <!-- 用于显示天数 -->
-        </div>
-     </div>
-
-    <script>
-        let timeout;
-
-        // 添加长按事件监听器
-        document.addEventListener("DOMContentLoaded", function() {
-            const captureArea = document.getElementById('captureArea');
-
-            // 监听长按事件
-            captureArea.addEventListener('touchstart', handleLongPress);
-            captureArea.addEventListener('mousedown', handleLongPress);  // 支持桌面端的鼠标长按
-        });
 
         // 处理长按事件
         function handleLongPress(e) {
@@ -163,7 +85,7 @@
             }, 800);  // 800毫秒长按
         }
 
-        // 清除长按事件
+         // 清除长按事件
         document.addEventListener('touchend', function() {
             clearTimeout(timeout);
         });
@@ -171,7 +93,8 @@
             clearTimeout(timeout);
         });
 
-        // 使用 html2canvas 将页面内容生成图片并自动保存
+        // 使用 html2canvas 将页面内容转换为图片
+       // 使用 html2canvas 将页面内容生成图片并自动保存
         function saveAsImage() {
             const captureArea = document.getElementById('captureArea');
 
