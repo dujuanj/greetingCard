@@ -5,9 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="css/common.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
- <style>
-       .container {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.6.0/dom-to-image.min.js"></script>
+
+    <style>
+        .container {
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -18,14 +19,13 @@
         #generatedImage {
             display: none; /* 初始隐藏图片 */
             max-width: 100%;
-           height: 100vh;
+            height: 100vh;
         }
     </style>
 </head>
 <body>
      <div class="container result_wrap" id="captureArea">
         <div class="card_wrap">
-          
             <p id="nameDisplay"></p>
             <span id="yearDisplay"></span>
             <span id="monthDisplay"></span>
@@ -34,7 +34,9 @@
             <p id="dateDisplay"></p>
         </div>
     </div>
-     <img id="generatedImage" class="container" alt="点击生成的图片" />
+
+    <img id="generatedImage" class="container" alt="点击生成的图片" />
+
     <script>
         // 页面加载时，设置 sessionStorage 的值
         document.addEventListener("DOMContentLoaded", function() {
@@ -46,7 +48,8 @@
 
             // 显示获取的值到页面上
             document.getElementById("nameDisplay").textContent = storedName;
-           // 将存储的日期字符串（如 2024-09-19）分成年、月、日
+
+            // 将存储的日期字符串（如 2024-09-19）分成年、月、日
             const dateParts = storedDate.split('-'); // 分割日期为 ["2024", "09", "19"]
 
             const year = dateParts[0];
@@ -58,7 +61,7 @@
             document.getElementById("monthDisplay").textContent = month;
             document.getElementById("dayDisplay").textContent = day;
 
-             // 计算存储的日期与当前日期的差值
+            // 计算存储的日期与当前日期的差值
             const selectedDate = new Date(storedDate);
             const currentDate = new Date();
 
@@ -71,9 +74,9 @@
             // 显示天数
             document.getElementById("daysDisplay").textContent = `${daysDifference}`;
             
-           
             captureArea.addEventListener('touchstart', handleLongPress);
         });
+
         let timeout;
 
         // 处理长按事件
@@ -82,7 +85,7 @@
             timeout = setTimeout(() => {
                 // 用户长按超过设定时间后生成图片
                 convertToImage();
-            }, 500); // 800毫秒内未松开则触发长按事件
+            }, 500); // 500毫秒长按触发事件
         }
 
         // 清除长按事件
@@ -90,41 +93,43 @@
             clearTimeout(timeout);
         });
 
+        // 调整布局（如果需要）
         function adjustLayoutForScreenshot() {
-    // 调整布局确保截图正确
-    document.getElementById('nameDisplay').style.top = '19rem';  // 示例调整
-    document.getElementById('daysDisplay').style.top = '21rem';  // 示例调整
-}
+            document.getElementById('nameDisplay').style.top = '19rem';  // 示例调整
+            document.getElementById('daysDisplay').style.top = '21rem';  // 示例调整
+        }
 
-function resetLayout() {
-    // 还原布局
-    document.getElementById('nameDisplay').style.top = '19.8rem';
-    document.getElementById('daysDisplay').style.top = '23.9rem';
-}
+        // 还原布局
+        function resetLayout() {
+            document.getElementById('nameDisplay').style.top = '19.8rem';
+            document.getElementById('daysDisplay').style.top = '23.9rem';
+        }
 
-        // 使用 html2canvas 将页面内容转换为图片
+        // 使用 dom-to-image 将页面内容转换为图片
         function convertToImage() {
-            adjustLayoutForScreenshot()
+            //adjustLayoutForScreenshot();  // 调整布局
             const captureArea = document.getElementById('captureArea');  // 获取需要截图的区域
             const imgElement = document.getElementById('generatedImage');
 
-            html2canvas(captureArea,{scale:2}).then(function(canvas) {
-                // 生成图片
-                imgElement.src = canvas.toDataURL('image/png');
-                imgElement.style.display = 'block';  // 显示生成的图片
+            domtoimage.toPng(captureArea)  // 使用 dom-to-image 生成图片
+                .then(function (dataUrl) {
+                    // 将生成的图片显示在页面中
+                    imgElement.src = dataUrl;
+                    imgElement.style.display = 'block';  // 显示生成的图片
 
-                
-                captureArea.style.opacity = 0;  
-                setTimeout(() => {
-                    captureArea.style.display = 'none';  
-                }, 500);  
+                    // 隐藏原始内容
+                    captureArea.style.opacity = 0;
+                    setTimeout(() => {
+                        captureArea.style.display = 'none';
+                    }, 500);
 
-                // 显示图片
-                imgElement.style.opacity = 1;
-                 resetLayout(); 
-                 alert('图片已生成，请右键点击图片并选择“保存图片”进行下载。');
-                
-            });
+                    // 恢复布局
+                    //resetLayout(); 
+                    alert('图片已生成，请右键点击图片并选择“保存图片”进行下载。');
+                })
+                .catch(function (error) {
+                    console.error('生成图片时出错:', error);
+                });
         }
     </script>
 </body>
