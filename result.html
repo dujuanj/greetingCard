@@ -15,7 +15,7 @@
             height: 100vh;
             transition: opacity 0.5s ease; /* 添加平滑的过渡效果 */
         }
-        #downloadImage {
+        #generatedImage {
             display: none; /* 初始隐藏图片 */
             max-width: 100%;
            height: 100vh;
@@ -90,12 +90,25 @@
             clearTimeout(timeout);
         });
 
+        function adjustLayoutForScreenshot() {
+    // 调整布局确保截图正确
+    document.getElementById('nameDisplay').style.top = '18rem';  // 示例调整
+    document.getElementById('daysDisplay').style.top = '22rem';  // 示例调整
+}
+
+function resetLayout() {
+    // 还原布局
+    document.getElementById('nameDisplay').style.top = '19.8rem';
+    document.getElementById('daysDisplay').style.top = '23.9rem';
+}
+
         // 使用 html2canvas 将页面内容转换为图片
         function convertToImage() {
+            adjustLayoutForScreenshot()
             const captureArea = document.getElementById('captureArea');  // 获取需要截图的区域
             const imgElement = document.getElementById('generatedImage');
 
-            html2canvas(captureArea).then(function(canvas) {
+            html2canvas(captureArea,{scale:2}).then(function(canvas) {
                 // 生成图片
                 imgElement.src = canvas.toDataURL('image/png');
                 imgElement.style.display = 'block';  // 显示生成的图片
@@ -108,7 +121,9 @@
 
                 // 显示图片
                 imgElement.style.opacity = 1;
+                 resetLayout(); 
                  alert('图片已生成，请右键点击图片并选择“保存图片”进行下载。');
+                
             });
         }
     </script>
