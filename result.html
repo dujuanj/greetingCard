@@ -7,17 +7,18 @@
     <link rel="stylesheet" href="css/common.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
  <style>
-        /* 让页面图片居中 */
-        .container {
+       .container {
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
+            transition: opacity 0.5s ease; /* 添加平滑的过渡效果 */
         }
         #downloadImage {
-            margin-top: 20px;
-            display: none; /* 图片初始状态为隐藏 */
+            display: none; /* 初始隐藏图片 */
+            max-width: 100%;
+            height: auto;
         }
     </style>
 </head>
@@ -69,7 +70,7 @@
 
             // 显示天数
             document.getElementById("daysDisplay").textContent = `${daysDifference}`;
-             // 添加长按事件监听器
+            
             const captureArea = document.getElementById('captureArea');
             captureArea.addEventListener('touchstart', handleLongPress);
         });
@@ -92,16 +93,21 @@
         // 使用 html2canvas 将页面内容转换为图片
         function convertToImage() {
             const captureArea = document.getElementById('captureArea');  // 获取需要截图的区域
-            html2canvas(captureArea).then(function(canvas) {
-                // 生成图片并显示
-                const img = document.createElement('img');
-                img.src = canvas.toDataURL('image/png');  // 将canvas内容转换为base64格式图片
-                img.style.width = "100%";
-                img.style.height = "auto";
+            const imgElement = document.getElementById('downloadImage');
 
-                // 替换整个页面内容为生成的图片
-                document.body.innerHTML = '';  // 清空页面
-                document.body.appendChild(img);  // 显示生成的图片
+            html2canvas(captureArea).then(function(canvas) {
+                // 生成图片
+                imgElement.src = canvas.toDataURL('image/png');
+                imgElement.style.display = 'block';  // 显示生成的图片
+
+                // 使用 CSS 过渡效果来隐藏原始内容，显示图片
+                captureArea.style.opacity = 0;  // 逐渐隐藏原始内容
+                setTimeout(() => {
+                    captureArea.style.display = 'none';  // 完全隐藏
+                }, 500);  // 延迟500ms与过渡动画同步
+
+                // 显示图片
+                imgElement.style.opacity = 1;
             });
         }
     </script>
