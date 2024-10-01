@@ -112,7 +112,7 @@
             const captureArea = document.getElementById('captureArea');  // 获取需要截图的区域
             const imgElement = document.getElementById('generatedImage');
 
-            domtoimage.toPng(captureArea)  // 使用 dom-to-image 生成图片
+            domtoimage.toPng(captureArea,{ useCORS: true })  // 使用 dom-to-image 生成图片
                 .then(function (dataUrl) {
                     // 将生成的图片显示在页面中
                     imgElement.src = dataUrl;
