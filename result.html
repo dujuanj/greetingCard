@@ -5,12 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="css/common.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+ <style>
+        /* 让页面图片居中 */
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        #downloadImage {
+            margin-top: 20px;
+            display: none; /* 图片初始状态为隐藏 */
+        }
+    </style>
 </head>
 <body>
-     <div class="container result_wrap">
-        <!-- <img src="img/result_bg.jpg" alt=""> -->
+     <div class="container result_wrap" id="captureArea">
         <div class="card_wrap">
-           <!-- <img src="img/card_content.png" alt=""> -->
           
             <p id="nameDisplay"></p>
             <span id="yearDisplay"></span>
@@ -56,7 +69,41 @@
 
             // 显示天数
             document.getElementById("daysDisplay").textContent = `${daysDifference}`;
+             // 添加长按事件监听器
+            const captureArea = document.getElementById('captureArea');
+            captureArea.addEventListener('touchstart', handleLongPress);
         });
+        let timeout;
+
+        // 处理长按事件
+        function handleLongPress(e) {
+            e.preventDefault();
+            timeout = setTimeout(() => {
+                // 用户长按超过设定时间后生成图片
+                convertToImage();
+            }, 800); // 800毫秒内未松开则触发长按事件
+        }
+
+        // 清除长按事件
+        document.addEventListener('touchend', function() {
+            clearTimeout(timeout);
+        });
+
+        // 使用 html2canvas 将页面内容转换为图片
+        function convertToImage() {
+            const captureArea = document.getElementById('captureArea');  // 获取需要截图的区域
+            html2canvas(captureArea).then(function(canvas) {
+                // 生成图片并显示
+                const img = document.createElement('img');
+                img.src = canvas.toDataURL('image/png');  // 将canvas内容转换为base64格式图片
+                img.style.width = "100%";
+                img.style.height = "auto";
+
+                // 替换整个页面内容为生成的图片
+                document.body.innerHTML = '';  // 清空页面
+                document.body.appendChild(img);  // 显示生成的图片
+            });
+        }
     </script>
 </body>
 </html>
