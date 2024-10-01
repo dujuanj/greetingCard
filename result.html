@@ -34,7 +34,7 @@
             <p id="dateDisplay"></p>
         </div>
     </div>
-     <img id="generatedImage" alt="点击生成的图片" />
+     <img id="generatedImage" class="container" alt="点击生成的图片" />
     <script>
         // 页面加载时，设置 sessionStorage 的值
         document.addEventListener("DOMContentLoaded", function() {
@@ -92,8 +92,8 @@
 
         function adjustLayoutForScreenshot() {
     // 调整布局确保截图正确
-    document.getElementById('nameDisplay').style.top = '18rem';  // 示例调整
-    document.getElementById('daysDisplay').style.top = '22rem';  // 示例调整
+    document.getElementById('nameDisplay').style.top = '19rem';  // 示例调整
+    document.getElementById('daysDisplay').style.top = '21rem';  // 示例调整
 }
 
 function resetLayout() {
