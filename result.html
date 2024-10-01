@@ -121,18 +121,13 @@
     <title>Document</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
-        /* 页面内容和图片显示时保持居中 */
+        /* 页面内容居中 */
         .container {
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
-        }
-        #downloadImage {
-            display: none; /* 图片在生成前不可见 */
-            max-width: 100%;
-            height: auto;
         }
     </style>
 </head>
@@ -146,40 +141,54 @@
             <p id="daysDisplay">100天</p> <!-- 用于显示天数 -->
         </div>
      </div>
-     <img id="downloadImage" alt="点击生成的图片" />
 
     <script>
         let timeout;
 
-        // 页面加载时，自动生成图片
+        // 添加长按事件监听器
         document.addEventListener("DOMContentLoaded", function() {
             const captureArea = document.getElementById('captureArea');
-            const imgElement = document.getElementById('downloadImage');
 
-            // 使用 html2canvas 生成图片
-            html2canvas(captureArea).then(function(canvas) {
-                // 将生成的图片设置到 img 标签中
-                imgElement.src = canvas.toDataURL('image/png');
-            });
-
-            // 添加长按事件监听器（捕获用户长按事件）
+            // 监听长按事件
             captureArea.addEventListener('touchstart', handleLongPress);
+            captureArea.addEventListener('mousedown', handleLongPress);  // 支持桌面端的鼠标长按
         });
 
         // 处理长按事件
         function handleLongPress(e) {
             e.preventDefault();
             timeout = setTimeout(() => {
-                // 长按800ms后显示图片
-                document.getElementById('downloadImage').style.display = 'block';
-                alert('现在可以长按保存图片！');  // 提示用户可以长按保存
-            }, 800);  // 长按800毫秒触发图片显示
+                // 长按超过800ms后，生成图片并自动保存
+                saveAsImage();
+            }, 800);  // 800毫秒长按
         }
 
         // 清除长按事件
         document.addEventListener('touchend', function() {
             clearTimeout(timeout);
         });
+        document.addEventListener('mouseup', function() {
+            clearTimeout(timeout);
+        });
+
+        // 使用 html2canvas 将页面内容生成图片并自动保存
+        function saveAsImage() {
+            const captureArea = document.getElementById('captureArea');
+
+            html2canvas(captureArea).then(function(canvas) {
+                // 将生成的 canvas 转换为图片的 Data URL
+                const imgData = canvas.toDataURL('image/png');
+
+                // 创建一个临时的 a 标签，用于下载
+                const link = document.createElement('a');
+                link.href = imgData;
+                link.download = 'screenshot.png';  // 图片文件名
+                document.body.appendChild(link);
+                link.click();  // 模拟点击以触发下载
+                document.body.removeChild(link);  // 移除临时创建的 a 标签
+            });
+        }
     </script>
 </body>
 </html>
+
