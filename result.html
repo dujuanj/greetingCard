@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="css/common.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.6.0/dom-to-image.min.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
     <style>
         .container {
@@ -22,23 +22,130 @@
             height: 100vh;
             width: 100%;
         }
+        p{
+            margin-bottom: 0.7rem;
+        }
     </style>
 </head>
 <body>
      <div class="container result_wrap" id="captureArea">
         <div class="card_wrap">
-            <p id="nameDisplay"></p>
-            <span id="yearDisplay"></span>
-            <span id="monthDisplay"></span>
-            <span id="dayDisplay"></span>
-            <p id="daysDisplay"></p>
-            <p id="dateDisplay"></p>
+            <div class="re_content">
+                <p >
+                    <span id="nameDisplay"></span>
+                    <span class="ori_text">同志：</span>
+                </p> 
+               <p class="second">
+                     &nbsp; &nbsp; &nbsp; &nbsp;<span id="yearDisplay"></span>
+                    <span>年</span>
+                    <span id="monthDisplay"></span>
+                    <span>月</span>
+                    <span id="dayDisplay"></span>
+                    <span>日，你</span>
+                   
+                </p>
+                <p>
+                    光荣加入共产党，至今已有
+                    <span id="daysDisplay"></span>天，
+                  
+                </p>
+                <p>
+                     希望你铭记誓言，终身坚守、永远奋斗。
+                </p>
+               <p class="bottom">清镇政治生日仪式中心</p>
+                
+             
+               
+                <p id="dateDisplay"></p>
+            </div>
+           
         </div>
     </div>
 
     <img id="generatedImage" class="container" alt="点击生成的图片" />
 
-    <script>
+     <script>
+        // 页面加载时，设置 sessionStorage 的值
+        document.addEventListener("DOMContentLoaded", function() {
+             const captureArea = document.getElementById('captureArea');
+
+            // 从 sessionStorage 中获取并显示值
+            const storedName = sessionStorage.getItem('name');
+            const storedDate = sessionStorage.getItem('date');
+
+            // 显示获取的值到页面上
+            document.getElementById("nameDisplay").textContent = storedName;
+
+            // 将存储的日期字符串（如 2024-09-19）分成年、月、日
+            const dateParts = storedDate.split('-'); // 分割日期为 ["2024", "09", "19"]
+
+            const year = dateParts[0];
+            const month = dateParts[1];
+            const day = dateParts[2];
+
+            // 显示年、月、日到对应的 HTML 元素
+            document.getElementById("yearDisplay").textContent = year;
+            document.getElementById("monthDisplay").textContent = month;
+            document.getElementById("dayDisplay").textContent = day;
+
+            // 计算存储的日期与当前日期的差值
+            const selectedDate = new Date(storedDate);
+            const currentDate = new Date();
+
+            // 计算两者的时间差 (毫秒)
+            const timeDifference = currentDate - selectedDate;
+
+            // 将时间差转为天数
+            const daysDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+
+            // 显示天数
+            document.getElementById("daysDisplay").textContent = `${daysDifference}`;
+            
+            captureArea.addEventListener('touchstart', handleLongPress);
+        });
+
+        let timeout;
+
+        // 处理长按事件
+        function handleLongPress(e) {
+            e.preventDefault();
+            timeout = setTimeout(() => {
+                // 用户长按超过设定时间后生成图片
+                convertToImage();
+            }, 500); // 500毫秒长按触发事件
+        }
+
+        // 清除长按事件
+        document.addEventListener('touchend', function() {
+            clearTimeout(timeout);
+        });
+
+        // 使用 html2canvas 将页面内容转换为图片
+        function convertToImage() {
+            const captureArea = document.getElementById('captureArea');  // 获取需要截图的区域
+            const imgElement = document.getElementById('generatedImage');
+
+            html2canvas(captureArea, { useCORS: true })  // 使用 html2canvas 生成图片
+                .then(function (canvas) {
+                    // 将生成的图片显示在页面中
+                    const dataUrl = canvas.toDataURL('image/png');
+                    imgElement.src = dataUrl;
+                    imgElement.style.display = 'block';  // 显示生成的图片
+
+                    // 隐藏原始内容
+                    captureArea.style.opacity = 0;
+                    setTimeout(() => {
+                        captureArea.style.display = 'none';
+                    }, 500);
+
+                    alert('图片已生成，请右键点击图片并选择“保存图片”进行下载。');
+                })
+                .catch(function (error) {
+                    console.error('生成图片时出错:', error);
+                });
+        }
+    </script>
+    <!-- <script>
         // 页面加载时，设置 sessionStorage 的值
         document.addEventListener("DOMContentLoaded", function() {
              const captureArea = document.getElementById('captureArea');
@@ -132,6 +239,6 @@
                     console.error('生成图片时出错:', error);
                 });
         }
-    </script>
+    </script> -->
 </body>
 </html>
