@@ -172,7 +172,8 @@ html {
     width: 100%;
     /* width: 100%; */
     height: 42rem;
-    background: url(../img/card_content.png) no-repeat;
+    background: url(../img/rebj.png) no-repeat;
+   
     background-size: 100% 100%;
     padding-top: 5rem;
     position: relative;
@@ -192,7 +193,38 @@ html {
     padding:0 15px;
 }
 
-#nameDisplay{
+.re_content{
+    position:absolute;
+    top: 12rem;
+    left: 4rem;
+    color:#b20000;
+}
+.ori_text{
+    font-size: 1rem;
+}
+#nameDisplay,#yearDisplay,#monthDisplay,#dayDisplay,#daysDisplay{
+    border-bottom: 1px solid #b20000;
+    padding:0 3px;
+    box-sizing: border-box;
+}
+#nameDisplay,#yearDisplay{
+    width:4rem;
+    display: inline-block;
+}
+#monthDisplay,#dayDisplay,#daysDisplay{
+    display: inline-block;
+    text-align: center;
+    width: 2.5rem;
+}
+#daysDisplay{
+    width:3.3rem;
+}
+.bottom{
+    width: 100%;
+    text-align: center;
+    margin-top:2rem;
+}
+/* #nameDisplay{
     position: absolute;
     top:19.8rem;
     left:4.5rem;
@@ -226,7 +258,7 @@ html {
     left: 14.6rem;
     color:red;
     font-weight: bold;
-}
+} */
 
 
 
