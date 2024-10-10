@@ -206,6 +206,7 @@ html {
     border-bottom: 1px solid #b20000;
     padding:0 3px;
     box-sizing: border-box;
+     line-height: 1.5; /* 调整行高，避免文字压在边框上 */
 }
 #nameDisplay,#yearDisplay{
     width:4rem;
@@ -224,41 +225,3 @@ html {
     text-align: center;
     margin-top:2rem;
 }
-/* #nameDisplay{
-    position: absolute;
-    top:19.8rem;
-    left:4.5rem;
-    color:red;
-    font-weight: bold;
-}
-#daysDisplay{
-    position: absolute;
-    top:23.9rem;
-    left:14.5rem;
-    color:red;
-    font-weight: bold;
-}
-#yearDisplay{
-    position: absolute;
-    top: 21.9rem;
-    left: 6.5rem;
-    color:red;
-    font-weight: bold;
-}
-#monthDisplay{
-    position: absolute;
-   top: 21.9rem;
-    left: 11.8rem;
-     color:red;
-    font-weight: bold;
-}
-#dayDisplay{
-    position: absolute;
-     top: 21.9rem;
-    left: 14.6rem;
-    color:red;
-    font-weight: bold;
-} */
-
-
-
