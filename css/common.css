@@ -199,11 +199,22 @@ html {
     font-size: 1rem;
 }
 #nameDisplay,#yearDisplay,#monthDisplay,#dayDisplay,#daysDisplay{
-    border-bottom: 1px solid #b20000;
+    /* border-bottom: 1px solid #b20000; */
     /* padding:0 3px; */
     font-weight: bold;
     box-sizing: border-box;
-     line-height: 1.5; /* 调整行高，避免文字压在边框上 */
+     line-height: 1.5; 
+     position: relative;
+}
+#nameDisplay::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: #b20000;
+  transform: translateY(100%);  /* 移动伪元素到文字的底部 */
 }
 #nameDisplay,#yearDisplay{
     width:4rem;
