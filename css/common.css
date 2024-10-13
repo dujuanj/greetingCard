@@ -209,13 +209,14 @@ html {
 #nameDisplay::after {
   content: '';
   position: absolute;
-  bottom: 0;
+  bottom: -2px;
   left: 0;
   right: 0;
   height: 2px;
   background-color: #b20000;
-  transform: translateY(100%);  /* 移动伪元素到文字的底部 */
-}
+  transform: translateY(100%); 
+ } 
+
 #nameDisplay,#yearDisplay{
     width:4rem;
     display: inline-block;
