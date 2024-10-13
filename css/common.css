@@ -165,14 +165,9 @@ html {
     background-size: 100% 100%;
 }
 .card_wrap{
-    /* position: absolute;
-    top: 0;      
-    left: 50%;   
-    transform: translateX(-50%); */
     width: 100%;
-    /* width: 100%; */
-    height: 42rem;
-    background: url(../img/rebj.png) no-repeat;
+    height: 29rem;
+    background: url(../img/rebj.jpg) no-repeat;
    
     background-size: 100% 100%;
     padding-top: 5rem;
@@ -204,7 +199,7 @@ html {
 }
 #nameDisplay,#yearDisplay,#monthDisplay,#dayDisplay,#daysDisplay{
     border-bottom: 1px solid #b20000;
-    padding:0 3px;
+    /* padding:0 3px; */
     box-sizing: border-box;
      line-height: 1.5; /* 调整行高，避免文字压在边框上 */
 }
