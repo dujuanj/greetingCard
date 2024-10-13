@@ -193,13 +193,15 @@ html {
     top: 12rem;
     left: 4rem;
     color:#b20000;
+    
 }
 .ori_text{
     font-size: 1rem;
 }
 #nameDisplay,#yearDisplay,#monthDisplay,#dayDisplay,#daysDisplay{
-    border-bottom: 1px solid #b20000;
+    /* border-bottom: 1px solid #b20000; */
     /* padding:0 3px; */
+    font-weight: bold;
     box-sizing: border-box;
      line-height: 1.5; /* 调整行高，避免文字压在边框上 */
 }
